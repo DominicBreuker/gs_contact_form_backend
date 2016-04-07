@@ -1,26 +1,32 @@
 // Instructions
-//  1. Define the sheet to which data sohuld be logged
-//      use the variable below:
-var SHEET_NAME = "Sheet1";
-
-//  2. Register the spreadsheet in the properties of the script
+//  1. Register the spreadsheet in the properties of the script
 //      select "Run -> registerSpreadsheetWithScript" from the menu bar
 
-//  3. Publish the web application
+//  2. Publish the web application
 //      select "Publish -> Deploy as web app" from the menu bar
 //        - select "execute as me" to make the script run with your user's permissions
 //        - select "anyone, even anonymously" to allow anyone on the internet to send data to your script
 
-//  4. Put the web app URL into your javascript snippet on your website
+//  3. Put the web app URL into your javascript snippet on your website
 //      you get it after publishing the web app
 
-//  5. Make sure the parameters from your web form match the column names in the google sheet (case sensitive!)
+//  4. Make sure the parameters from your web form match the column names in the google sheet (case sensitive!)
 
 var SCRIPT_PROPERTIES = PropertiesService.getScriptProperties();
 
-function registerSpreadsheetWithScript() {
+function registerSheetWithScript() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = SpreadsheetApp.getActiveSheet();
   SCRIPT_PROPERTIES.setProperty("spreadsheetId", spreadsheet.getId());
+  SCRIPT_PROPERTIES.setProperty("sheetName", sheet.getName());
+
+  SpreadsheetApp.getUi().alert('This sheet will now receive data from forms!');
+}
+
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu('FormBackend')
+                        .addItem('Register sheet', 'registerSheetWithScript')
+                        .addToUi();
 }
 
 // this is called when you app receives a post request
@@ -29,22 +35,22 @@ function doPost(e) {
     var newRow = createNewRowAndWriteToSheet(e.parameter);
     return JsonFormattedSuccess(newRow.toString());
   } catch(error) {
-    return JsonFormattedError(error)
+    return JsonFormattedSuccess(error)
   }
 }
 
 // main function creating the row based on the parameters posted to your web app
 function createNewRowAndWriteToSheet(parameters) {
-  var sheet = getSheet(SHEET_NAME);
+  var sheet = getSheet();
   var headers = getHeaders(sheet);
   var newRow = createRow(headers, parameters);
   callWithScriptLock(writeRowToSheet, sheet, newRow);
   return newRow;
 }
 
-function getSheet(sheet_name) {
+function getSheet() {
   var spreadsheet = SpreadsheetApp.openById(SCRIPT_PROPERTIES.getProperty("spreadsheetId"));
-  return spreadsheet.getSheetByName(sheet_name);
+  return spreadsheet.getSheetByName(SCRIPT_PROPERTIES.getProperty("sheetName"));
 }
 
 function getHeaders(sheet) {

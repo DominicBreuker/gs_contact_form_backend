@@ -12,7 +12,7 @@ function testSuite() {
 
   function testRowCreation() {
     // define data
-    sheet = getSheet(SHEET_NAME);
+    sheet = getSheet();
     var event = {
         "parameter": {
         "name": "Tim",
@@ -34,9 +34,9 @@ function testSuite() {
 
     // expect row was created with correct display values
     var rowCreated = expectEqual("expect number of rows to grow by 1", last_row_index_before + 1, last_row_index_after);
-    expectArrayEqual("expect correct display values", last_row_after_display_values, ["06/04/2016", "Tim", "love it", "male", "tim@example.com", "burgers", "undefined", "sleeping"]);
-    Logger.log("Result of testRowCreation: " + JSON.stringify(JSON.parse(response.getContent())));
+    expectArrayEqual("expect correct display values", last_row_after_display_values, ["07/04/2016", "Tim", "love it", "male", "tim@example.com", "burgers", "undefined", "sleeping"]);
 
+    Logger.log("Result of testRowCreation: " + JSON.stringify(JSON.parse(response.getContent())));
     // clean up if row creation was succesfull
     if (rowCreated) {
       sheet.deleteRow(last_row_index_after);
