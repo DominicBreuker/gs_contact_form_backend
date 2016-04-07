@@ -11,42 +11,42 @@
 
 <body>
   <form id="my_form">
-  <p>
-    <label>Name:</label>
-    <input name="name" type="text" value=""/>
-  </p>
-  <p>
-    <label>Email:</label>
-    <input name="email" type="text" value=""/>
-  </p>
-  <p>
-    <label>Comment:</label>
-    <textarea name="comment"></textarea>
-  </p>
-  <p>
-    <label>Sex:</label>
-    <br>
-    <input type="radio" name="sex" value="male" checked>Male
-    <br>
-    <input type="radio" name="sex" value="female">Female
-  </p>
-  <p>
-    <label>Favorite meal:</label>
-    <select name="favorite_meal">
-      <option value="burger">Burger</option>
-      <option value="pizza">Pizza</option>
-      <option value="sushi">Sushi</option>
-    </select>
-  </p>
-  <p>
-    <label>Hobbies:</label>
-    <br>
-    <input type="checkbox" name="hobby1" value="eating"> Eating
-    <br>
-    <input type="checkbox" name="hobby2" value="sleeping"> Sleeping
-  </p>
-  <p id="result"></p>
-  <input type="submit" value="Send"/>
+    <p>
+      <label>Name:</label>
+      <input name="name" type="text" value=""/>
+    </p>
+    <p>
+      <label>Email:</label>
+      <input name="email" type="text" value=""/>
+    </p>
+    <p>
+      <label>Comment:</label>
+      <textarea name="comment"></textarea>
+    </p>
+    <p>
+      <label>Sex:</label>
+      <br>
+      <input type="radio" name="sex" value="male" checked>Male
+      <br>
+      <input type="radio" name="sex" value="female">Female
+    </p>
+    <p>
+      <label>Favorite meal:</label>
+      <select name="favorite_meal">
+        <option value="burger">Burger</option>
+        <option value="pizza">Pizza</option>
+        <option value="sushi">Sushi</option>
+      </select>
+    </p>
+    <p>
+      <label>Hobbies:</label>
+      <br>
+      <input type="checkbox" name="hobby1" value="eating"> Eating
+      <br>
+      <input type="checkbox" name="hobby2" value="sleeping"> Sleeping
+    </p>
+    <p id="result"></p>
+    <input type="submit" value="Send"/>
   </form>
 
   <script data-cfasync="false" type="text/javascript">
@@ -65,12 +65,12 @@
 
       // on success
       request.done(function (response, textStatus, jqXHR){
-        $('#result').text('Success - look at your sheet!!' + JSON.stringify(response));
+        $('#result').text('Success - look at your sheet!!');
       });
 
       // on failure
       request.fail(function (jqXHR, textStatus, errorThrown){
-        $('#result').text('Failure - is the service running?' + JSON.stringify(errorThrown));
+        $('#result').text('Failure - is the service running?');
       });
 
       event.preventDefault();

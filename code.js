@@ -29,7 +29,7 @@ function doPost(e) {
     var newRow = createNewRowAndWriteToSheet(e.parameter);
     return JsonFormattedSuccess(newRow.toString());
   } catch(error) {
-    return JsonFormattedSuccess(error)
+    return JsonFormattedError(error)
   }
 }
 
